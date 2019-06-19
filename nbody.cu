@@ -29,14 +29,17 @@ void randomizeBodies(float *data, int n) {
  * on all others, but does not update their positions.
  */
 
-void bodyForce(Body *p, float dt, int n) {
-  for (int i = 0; i < n; ++i) {
+__global__ void bodyForce(Body *p, float dt, int n) {
+  int tid = threadIdx.x + blockIdx.x * blockDim.x;
+  int gridStrid = blockDim.x * gridDim.x;
+
+  for (; tid < n; tid += gridStrid) {
     float Fx = 0.0f; float Fy = 0.0f; float Fz = 0.0f;
 
     for (int j = 0; j < n; j++) {
-      float dx = p[j].x - p[i].x;
-      float dy = p[j].y - p[i].y;
-      float dz = p[j].z - p[i].z;
+      float dx = p[j].x - p[tid].x;
+      float dy = p[j].y - p[tid].y;
+      float dz = p[j].z - p[tid].z;
       float distSqr = dx*dx + dy*dy + dz*dz + SOFTENING;
       float invDist = rsqrtf(distSqr);
       float invDist3 = invDist * invDist * invDist;
@@ -44,7 +47,7 @@ void bodyForce(Body *p, float dt, int n) {
       Fx += dx * invDist3; Fy += dy * invDist3; Fz += dz * invDist3;
     }
 
-    p[i].vx += dt*Fx; p[i].vy += dt*Fy; p[i].vz += dt*Fz;
+    p[tid].vx += dt*Fx; p[tid].vy += dt*Fy; p[tid].vz += dt*Fz;
   }
 }
 
@@ -117,17 +120,17 @@ int main(const int argc, const char** argv) {
    * You will likely wish to refactor the work being done in `bodyForce`,
    * as well as the work to integrate the positions.
    */
-    cudaMemPrefetchAsync(buf, bytes, cudaCpuDeviceId);
-    bodyForce(p, dt, nBodies); // compute interbody forces
-    cudaDeviceSynchronize();
+    cudaMemPrefetchAsync(buf, bytes, deviceId);
+    bodyForce<<<prop.multiProcessorCount, prop.warpSize>>>(p, dt, nBodies); // compute interbody forces
+    //cudaDeviceSynchronize();
   /*
    * This position integration cannot occur until this round of `bodyForce` has completed.
    * Also, the next round of `bodyForce` cannot begin until the integration is complete.
    */
 
-    cudaMemPrefetchAsync(buf, bytes, deviceId);
+    //cudaMemPrefetchAsync(buf, bytes, deviceId);
     integratePosition<<<prop.multiProcessorCount, prop.warpSize>>>(p, dt, nBodies);
-    cudaDeviceSynchronize();
+    //cudaDeviceSynchronize();
 
   /*******************************************************************/
   // Do not modify the code in this section.
@@ -135,10 +138,10 @@ int main(const int argc, const char** argv) {
     totalTime += tElapsed;
   }
 
+  cudaDeviceSynchronize();
+  cudaMemPrefetchAsync(buf, bytes, cudaCpuDeviceId);
   double avgTime = totalTime / (double)(nIters);
   float billionsOfOpsPerSecond = 1e-9 * nBodies * nBodies / avgTime;
-
-  cudaMemPrefetchAsync(buf, bytes, cudaCpuDeviceId);
 
 #ifdef ASSESS
   checkPerformance(buf, billionsOfOpsPerSecond, salt);
