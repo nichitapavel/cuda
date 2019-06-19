@@ -73,6 +73,7 @@ int main(const int argc, const char** argv) {
 
   cudaMallocManaged(&buf, bytes);
 
+  cudaMemPrefetchAsync(buf, bytes, cudaCpuDeviceId);
   Body *p = (Body*)buf;
 
   /*
