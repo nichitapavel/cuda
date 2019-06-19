@@ -71,7 +71,7 @@ int main(const int argc, const char** argv) {
   int bytes = nBodies * sizeof(Body);
   float *buf;
 
-  buf = (float *)malloc(bytes);
+  cudaMallocManaged(&buf, bytes);
 
   Body *p = (Body*)buf;
 
@@ -134,5 +134,5 @@ int main(const int argc, const char** argv) {
    * Feel free to modify code below.
    */
 
-  free(buf);
+  cudaFree(buf);
 }
