@@ -1,0 +1,212 @@
+==================================================================================================================================================
+>>>
+commit: 1763f45
+<<<
+
+Simulator is calculating positions correctly.
+4096 Bodies: average 0.036 Billion Interactions / second
+
+
+==================================================================================================================================================
+>>>
+commit: 822c72c
+<<<
+
+==297== NVPROF is profiling process 297, command: ./nbody
+Simulator is calculating positions correctly.
+4096 Bodies: average 0.036 Billion Interactions / second
+==297== Profiling application: ./nbody
+==297== Profiling result:
+No kernels were profiled.
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+      API calls:   99.58%  159.25ms         1  159.25ms  159.25ms  159.25ms  cudaMallocManaged
+                    0.16%  254.62us        94  2.7080us     610ns  69.471us  cuDeviceGetAttribute
+                    0.16%  248.00us         1  248.00us  248.00us  248.00us  cuDeviceTotalMem
+                    0.09%  141.85us         1  141.85us  141.85us  141.85us  cudaFree
+                    0.01%  17.229us         1  17.229us  17.229us  17.229us  cuDeviceGetName
+                    0.00%  3.6940us         3  1.2310us     648ns  1.8450us  cuDeviceGetCount
+                    0.00%  1.9740us         2     987ns     700ns  1.2740us  cuDeviceGet
+
+==297== Unified Memory profiling result:
+Total CPU Page faults: 2
+
+
+==================================================================================================================================================
+>>>
+commit: b2c837a
+<<<
+
+==351== NVPROF is profiling process 351, command: ./nbody
+Simulator is calculating positions correctly.
+4096 Bodies: average 0.036 Billion Interactions / second
+==351== Profiling application: ./nbody
+==351== Profiling result:
+No kernels were profiled.
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+      API calls:   99.09%  158.57ms         1  158.57ms  158.57ms  158.57ms  cudaMallocManaged
+                    0.50%  798.41us         1  798.41us  798.41us  798.41us  cudaMemPrefetchAsync
+                    0.16%  252.26us        94  2.6830us     612ns  68.601us  cuDeviceGetAttribute
+                    0.15%  247.38us         1  247.38us  247.38us  247.38us  cuDeviceTotalMem
+                    0.08%  135.29us         1  135.29us  135.29us  135.29us  cudaFree
+                    0.01%  16.612us         1  16.612us  16.612us  16.612us  cuDeviceGetName
+                    0.00%  3.3150us         3  1.1050us     635ns  1.7230us  cuDeviceGetCount
+                    0.00%  1.6800us         2     840ns     649ns  1.0310us  cuDeviceGet
+
+
+==================================================================================================================================================
+>>>
+commit: 5fa54a5
+<<<
+
+==414== NVPROF is profiling process 414, command: ./nbody
+Simulator is calculating positions correctly.
+4096 Bodies: average 0.036 Billion Interactions / second
+==414== Profiling application: ./nbody
+==414== Profiling result:
+No kernels were profiled.
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+      API calls:   99.12%  159.36ms         1  159.36ms  159.36ms  159.36ms  cudaMallocManaged
+                    0.47%  748.81us         1  748.81us  748.81us  748.81us  cudaMemPrefetchAsync
+                    0.16%  258.87us        94  2.7530us     642ns  70.473us  cuDeviceGetAttribute
+                    0.16%  252.42us         1  252.42us  252.42us  252.42us  cuDeviceTotalMem
+                    0.09%  138.48us         1  138.48us  138.48us  138.48us  cudaFree
+                    0.01%  16.994us         1  16.994us  16.994us  16.994us  cuDeviceGetName
+                    0.00%  3.4240us         3  1.1410us     659ns  1.7280us  cuDeviceGetCount
+                    0.00%  1.7540us         2     877ns     707ns  1.0470us  cuDeviceGet
+
+
+==================================================================================================================================================
+>>>
+commit: 5a71d4b
+<<<
+
+==252== NVPROF is profiling process 252, command: ./nbody
+Simulator is calculating positions correctly.
+4096 Bodies: average 0.036 Billion Interactions / second
+==252== Profiling application: ./nbody
+==252== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:  100.00%  3.0752ms        10  307.52us  286.21us  377.89us  integratePosition(Body*, float, int)
+      API calls:   96.51%  160.34ms         1  160.34ms  160.34ms  160.34ms  cudaMallocManaged
+                    1.94%  3.2275ms        20  161.38us  8.8850us  382.55us  cudaDeviceSynchronize
+                    0.51%  850.33us        10  85.033us  76.291us  101.16us  cudaLaunch
+                    0.47%  783.64us         1  783.64us  783.64us  783.64us  cudaMemPrefetchAsync
+                    0.15%  256.31us        94  2.7260us     611ns  70.681us  cuDeviceGetAttribute
+                    0.15%  251.11us         1  251.11us  251.11us  251.11us  cuDeviceTotalMem
+                    0.14%  225.68us         1  225.68us  225.68us  225.68us  cudaGetDeviceProperties
+                    0.08%  139.27us         1  139.27us  139.27us  139.27us  cudaFree
+                    0.01%  21.748us        30     724ns     581ns  1.3340us  cudaSetupArgument
+                    0.01%  17.159us         1  17.159us  17.159us  17.159us  cuDeviceGetName
+                    0.01%  11.002us        10  1.1000us     952ns  1.5570us  cudaConfigureCall
+                    0.00%  4.1750us         3  1.3910us     608ns  2.3870us  cuDeviceGetCount
+                    0.00%  2.2780us         1  2.2780us  2.2780us  2.2780us  cudaGetDevice
+                    0.00%  1.8970us         2     948ns     710ns  1.1870us  cuDeviceGet
+
+==252== Unified Memory profiling result:
+Device "Tesla V100-SXM2-16GB (0)"
+   Count  Avg Size  Min Size  Max Size  Total Size  Total Time  Name
+      36  32.889KB  4.0000KB  60.000KB  1.156250MB  196.5440us  Host To Device
+      34  33.882KB  4.0000KB  92.000KB  1.125000MB  131.5200us  Device To Host
+      20         -         -         -           -  3.041344ms  Gpu page fault groups
+      48  4.0000KB  4.0000KB  4.0000KB  192.0000KB           -  Memory thrashes
+Total CPU Page faults: 17
+Total CPU thrashes: 48
+
+
+==================================================================================================================================================
+>>>
+commit: c8dd4ed
+<<<
+
+==450== NVPROF is profiling process 450, command: ./nbody
+Simulator is calculating positions correctly.
+4096 Bodies: average 0.036 Billion Interactions / second
+==450== Profiling application: ./nbody
+==450== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:  100.00%  24.288us        10  2.4280us  2.3360us  3.1040us  integratePosition(Body*, float, int)
+      API calls:   97.57%  158.79ms         1  158.79ms  158.79ms  158.79ms  cudaMallocManaged
+                    1.15%  1.8693ms        22  84.968us  12.836us  817.45us  cudaMemPrefetchAsync
+                    0.58%  941.39us        10  94.138us  71.028us  144.98us  cudaLaunch
+                    0.16%  255.59us        94  2.7190us     623ns  69.734us  cuDeviceGetAttribute
+                    0.15%  247.34us         1  247.34us  247.34us  247.34us  cuDeviceTotalMem
+                    0.14%  231.51us        20  11.575us  9.5790us  25.023us  cudaDeviceSynchronize
+                    0.14%  224.36us         1  224.36us  224.36us  224.36us  cudaGetDeviceProperties
+                    0.08%  131.23us         1  131.23us  131.23us  131.23us  cudaFree
+                    0.01%  21.451us        30     715ns     590ns  1.0260us  cudaSetupArgument
+                    0.01%  16.981us         1  16.981us  16.981us  16.981us  cuDeviceGetName
+                    0.01%  12.447us        10  1.2440us     984ns  1.9390us  cudaConfigureCall
+                    0.00%  3.7210us         3  1.2400us     628ns  1.8840us  cuDeviceGetCount
+                    0.00%  1.9950us         1  1.9950us  1.9950us  1.9950us  cudaGetDevice
+                    0.00%  1.8800us         2     940ns     670ns  1.2100us  cuDeviceGet
+
+==450== Unified Memory profiling result:
+Device "Tesla V100-SXM2-16GB (0)"
+   Count  Avg Size  Min Size  Max Size  Total Size  Total Time  Name
+      10  96.000KB  96.000KB  96.000KB  960.0000KB  115.0400us  Host To Device
+      10  96.000KB  96.000KB  96.000KB  960.0000KB  83.52000us  Device To Host
+
+
+==================================================================================================================================================
+>>>
+commit: c803ce6
+<<<
+
+==2388== NVPROF is profiling process 2388, command: ./nbody
+Simulator is calculating positions correctly.
+4096 Bodies: average 211.300 Billion Interactions / second
+==2388== Profiling application: ./nbody
+==2388== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   99.64%  4.6211ms        10  462.11us  461.91us  463.28us  bodyForce(Body*, float, int)
+                    0.36%  16.800us        10  1.6800us  1.6320us  1.9520us  integratePosition(Body*, float, int)
+      API calls:   95.74%  164.47ms         1  164.47ms  164.47ms  164.47ms  cudaMallocManaged
+                    2.87%  4.9370ms         1  4.9370ms  4.9370ms  4.9370ms  cudaDeviceSynchronize
+                    0.66%  1.1421ms        12  95.173us  14.072us  754.99us  cudaMemPrefetchAsync
+                    0.18%  308.40us        20  15.419us  7.1920us  123.17us  cudaLaunch
+                    0.15%  256.97us        94  2.7330us     614ns  71.484us  cuDeviceGetAttribute
+                    0.14%  247.94us         1  247.94us  247.94us  247.94us  cuDeviceTotalMem
+                    0.13%  226.01us         1  226.01us  226.01us  226.01us  cudaGetDeviceProperties
+                    0.07%  117.24us         1  117.24us  117.24us  117.24us  cudaFree
+                    0.02%  41.965us        60     699ns     588ns  1.0430us  cudaSetupArgument
+                    0.01%  17.992us         1  17.992us  17.992us  17.992us  cuDeviceGetName
+                    0.01%  16.822us        20     841ns     691ns  1.6330us  cudaConfigureCall
+                    0.00%  3.6570us         3  1.2190us     619ns  1.7520us  cuDeviceGetCount
+                    0.00%  2.3090us         1  2.3090us  2.3090us  2.3090us  cudaGetDevice
+                    0.00%  1.8960us         2     948ns     746ns  1.1500us  cuDeviceGet
+
+==2388== Unified Memory profiling result:
+Device "Tesla V100-SXM2-16GB (0)"
+   Count  Avg Size  Min Size  Max Size  Total Size  Total Time  Name
+       1  96.000KB  96.000KB  96.000KB  96.00000KB  11.13600us  Host To Device
+       1  96.000KB  96.000KB  96.000KB  96.00000KB  8.384000us  Device To Host
+
+*******************************************************************************************************************************
+
+==2401== NVPROF is profiling process 2401, command: ./nbody 15
+65536 Bodies: average 28902.875 Billion Interactions / second
+==2401== Profiling application: ./nbody 15
+==2401== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   99.99%  1.10627s        10  110.63ms  106.67ms  124.52ms  bodyForce(Body*, float, int)
+                    0.01%  90.783us        10  9.0780us  8.7680us  10.624us  integratePosition(Body*, float, int)
+      API calls:   86.71%  1.10647s         1  1.10647s  1.10647s  1.10647s  cudaDeviceSynchronize
+                   12.99%  165.74ms         1  165.74ms  165.74ms  165.74ms  cudaMallocManaged
+                    0.20%  2.5387ms        12  211.56us  13.851us  1.2472ms  cudaMemPrefetchAsync
+                    0.03%  320.17us        20  16.008us  7.4290us  129.76us  cudaLaunch
+                    0.02%  259.25us        94  2.7570us     623ns  72.147us  cuDeviceGetAttribute
+                    0.02%  247.10us         1  247.10us  247.10us  247.10us  cuDeviceTotalMem
+                    0.02%  223.24us         1  223.24us  223.24us  223.24us  cudaGetDeviceProperties
+                    0.02%  199.83us         1  199.83us  199.83us  199.83us  cudaFree
+                    0.00%  40.433us        60     673ns     581ns  1.0640us  cudaSetupArgument
+                    0.00%  17.368us         1  17.368us  17.368us  17.368us  cuDeviceGetName
+                    0.00%  15.823us        20     791ns     633ns  1.7010us  cudaConfigureCall
+                    0.00%  3.6880us         3  1.2290us     633ns  1.8540us  cuDeviceGetCount
+                    0.00%  2.2370us         1  2.2370us  2.2370us  2.2370us  cudaGetDevice
+                    0.00%  1.8750us         2     937ns     765ns  1.1100us  cuDeviceGet
+
+==2401== Unified Memory profiling result:
+Device "Tesla V100-SXM2-16GB (0)"
+   Count  Avg Size  Min Size  Max Size  Total Size  Total Time  Name
+       1  1.5000MB  1.5000MB  1.5000MB  1.500000MB  146.9440us  Host To Device
+       1  1.5000MB  1.5000MB  1.5000MB  1.500000MB  124.2560us  Device To Host
