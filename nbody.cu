@@ -48,11 +48,13 @@ void bodyForce(Body *p, float dt, int n) {
   }
 }
 
-void integratePosition(Body *p, float dt, int n) {
-  for (int i = 0 ; i < n; i++) { // integrate position
-    p[i].x += p[i].vx*dt;
-    p[i].y += p[i].vy*dt;
-    p[i].z += p[i].vz*dt;
+__global__ void integratePosition(Body *p, float dt, int n) {
+  int tid = threadIdx.x + blockIdx.x * blockDim.x;
+  int gridStride = gridDim.x * blockDim.x;
+  for (; tid < n; tid += gridStride) { // integrate position
+    p[tid].x += p[tid].vx*dt;
+    p[tid].y += p[tid].vy*dt;
+    p[tid].z += p[tid].vz*dt;
   }
 }
 
@@ -92,6 +94,14 @@ int main(const int argc, const char** argv) {
 
   double totalTime = 0.0;
 
+
+  // Blocks and threads
+  int deviceId;
+  cudaGetDevice(&deviceId);
+  cudaDeviceProp prop;
+  cudaGetDeviceProperties(&prop, deviceId);
+
+
   /*
    * This simulation will run for 10 cycles of time, calculating gravitational
    * interaction amongst bodies, and adjusting their positions to reflect.
@@ -109,13 +119,15 @@ int main(const int argc, const char** argv) {
    */
 
     bodyForce(p, dt, nBodies); // compute interbody forces
-
+    cudaDeviceSynchronize();
   /*
    * This position integration cannot occur until this round of `bodyForce` has completed.
    * Also, the next round of `bodyForce` cannot begin until the integration is complete.
    */
 
-    integratePosition(p, dt, nBodies);
+
+    integratePosition<<<prop.multiProcessorCount, prop.warpSize>>>(p, dt, nBodies);
+    cudaDeviceSynchronize();
 
   /*******************************************************************/
   // Do not modify the code in this section.
