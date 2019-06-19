@@ -48,6 +48,14 @@ void bodyForce(Body *p, float dt, int n) {
   }
 }
 
+void integratePosition(Body *p, float dt, int n) {
+  for (int i = 0 ; i < n; i++) { // integrate position
+    p[i].x += p[i].vx*dt;
+    p[i].y += p[i].vy*dt;
+    p[i].z += p[i].vz*dt;
+  }
+}
+
 int main(const int argc, const char** argv) {
 
   /*
@@ -107,11 +115,7 @@ int main(const int argc, const char** argv) {
    * Also, the next round of `bodyForce` cannot begin until the integration is complete.
    */
 
-    for (int i = 0 ; i < nBodies; i++) { // integrate position
-      p[i].x += p[i].vx*dt;
-      p[i].y += p[i].vy*dt;
-      p[i].z += p[i].vz*dt;
-    }
+    integratePosition(p, dt, nBodies);
 
   /*******************************************************************/
   // Do not modify the code in this section.
