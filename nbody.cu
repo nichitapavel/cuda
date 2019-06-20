@@ -61,7 +61,24 @@ __global__ void integratePosition(Body *p, float dt, int n) {
   }
 }
 
+
+void cudaInfo()
+{
+  int deviceId;
+  cudaGetDevice(&deviceId);
+  cudaDeviceProp prop;
+  cudaGetDeviceProperties(&prop, deviceId);
+
+  printf("Name: %s\n", prop.name);
+  printf("SM's: %d\n", prop.multiProcessorCount);
+  printf("Warp size: %d\n", prop.warpSize);
+  printf("Max threads per block: %d\n", prop.maxThreadsPerBlock);
+  printf("Max threads per multiprocessor: %d\n", prop.maxThreadsPerMultiProcessor);
+}
+
 int main(const int argc, const char** argv) {
+
+  cudaInfo();
 
   /*
    * Do not change the value for `nBodies` here. If you would like to modify it,
