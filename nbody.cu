@@ -138,7 +138,7 @@ int main(const int argc, const char** argv) {
    * as well as the work to integrate the positions.
    */
     cudaMemPrefetchAsync(buf, bytes, deviceId);
-    bodyForce<<<prop.multiProcessorCount, prop.warpSize>>>(p, dt, nBodies); // compute interbody forces
+    bodyForce<<<16*prop.multiProcessorCount, 2*prop.warpSize>>>(p, dt, nBodies); // compute interbody forces
     //cudaDeviceSynchronize();
   /*
    * This position integration cannot occur until this round of `bodyForce` has completed.
@@ -146,7 +146,7 @@ int main(const int argc, const char** argv) {
    */
 
     //cudaMemPrefetchAsync(buf, bytes, deviceId);
-    integratePosition<<<prop.multiProcessorCount, prop.warpSize>>>(p, dt, nBodies);
+    integratePosition<<<16*prop.multiProcessorCount, 2*prop.warpSize>>>(p, dt, nBodies);
     //cudaDeviceSynchronize();
 
   /*******************************************************************/
